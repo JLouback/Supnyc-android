@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 
-public class LoadingPage extends Activity {
+public class LoadingPageActivity extends Activity {
 
     /** Called when the activity is first created. */
     @Override
@@ -65,7 +65,7 @@ public class LoadingPage extends Activity {
         protected void onPostExecute(Void result)
         {
             //initialize the View
-            Intent intent = new Intent(LoadingPage.this, com.example.julianalouback.supnyc.Menu.class);
+            Intent intent = new Intent(LoadingPageActivity.this, MenuActivity.class);
         }
     }
 
