@@ -17,7 +17,14 @@ public class MenuActivity extends Activity {
 
         setContentView(R.layout.activity_menu);
         party = (ImageButton) findViewById(R.id.party_button);
-        party.setOnClickListener(new MenuOnClickListener("party"));
+//        party.setOnClickListener(new MenuOnClickListener("party"));
+        party.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), EventListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
