@@ -2,6 +2,7 @@ package com.example.julianalouback.supnyc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,17 @@ public class EventListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.event_list_recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        //TODO:get the dataset here
+        String[] events = null;
+
+        mAdapter = new EventRecyclerAdapter(events);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
