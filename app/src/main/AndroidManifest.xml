@@ -23,10 +23,6 @@
             android:label="@string/title_activity_menu"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-        <activity
-            android:name="com.example.julianalouback.supnyc.EventListActivity"
-            android:label="@string/title_activity_event_list" >
-        </activity>
     </application>
 
 </manifest>
