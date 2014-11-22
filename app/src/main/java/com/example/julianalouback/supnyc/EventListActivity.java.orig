@@ -7,10 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+<<<<<<< HEAD
 import com.example.julianalouback.supnyc.Models.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+=======
+import com.example.julianalouback.supnyc.util.SystemUiHider;
+>>>>>>> 483755e4660697aafb49a5d696c0d9a756b51fba
 
 
 public class EventListActivity extends Activity {
@@ -21,6 +25,13 @@ public class EventListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("type");
+            System.out.print(value);
+        } else {
+            System.out.print("NOOOO");
+        }
         setContentView(R.layout.activity_event_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.event_list_recycler_view);
 
@@ -39,7 +50,11 @@ public class EventListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+<<<<<<< HEAD
+        //getMenuInflater().inflate(R.menu.menu_event_list, menu);
+=======
 
+>>>>>>> 483755e4660697aafb49a5d696c0d9a756b51fba
         return true;
     }
 
