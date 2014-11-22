@@ -11,22 +11,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:weightSum="100"
         >
+
         <LinearLayout
             android:id="@+id/picture"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="50"
             >
+
             <TextView
                 android:id="@+id/event_title"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="2dp"
+                android:text = "Hellow!!"
                 android:textSize="40dp"
-                android:background="#CC000000"
+                android:background="#AA000000"
+                android:layout_gravity="bottom"
                 android:textColor="#FFFFFFFF"
                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:background="#FFFFFFFF"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:textSize="20dp"
+                android:textColor="#FFFFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:textSize="20dp"
+                android:textColor="#FFFFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"/>
+
         </LinearLayout>
 
     </LinearLayout>

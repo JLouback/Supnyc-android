@@ -7,6 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.julianalouback.supnyc.Models.Event;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class EventListActivity extends Activity {
     private RecyclerView mRecyclerView;
@@ -24,7 +29,7 @@ public class EventListActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO:get the dataset here
-        String[] events = null;
+        List<Event> events = generateTestEvents();
 
         mAdapter = new EventRecyclerAdapter(events);
         mRecyclerView.setAdapter(mAdapter);
@@ -34,7 +39,7 @@ public class EventListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_list, menu);
+        //getMenuInflater().inflate(R.menu.menu_event_list, menu);
         return true;
     }
 
@@ -51,5 +56,15 @@ public class EventListActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public List<Event> generateTestEvents(){
+        List<Event> events = new ArrayList<Event>();
+        //String title, String desc, String address, String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl
+        for(int i = 0; i<10; i++){
+            events.add(new Event("Title", "Description", "Address", "Host", (long) 100000, (long) 150000, "Type", "URL"));
+        }
+
+        return events;
     }
 }
