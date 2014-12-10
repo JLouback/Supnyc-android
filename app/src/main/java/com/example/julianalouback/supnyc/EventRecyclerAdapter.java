@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.julianalouback.supnyc.Models.Event;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
