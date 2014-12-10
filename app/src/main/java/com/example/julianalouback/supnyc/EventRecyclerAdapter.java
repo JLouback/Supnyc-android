@@ -104,5 +104,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public void setItemList(List<Event> events){
         this.mDataset = events;
     }
-
+    public void removeItem(int position) {this.mDataset.remove(position);}
+    public Event getItem(int position) {return this.mDataset.get(position);}
 }
