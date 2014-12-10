@@ -2,6 +2,7 @@ package com.example.julianalouback.supnyc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +43,8 @@ public class EventListActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        getEvents("party");
+        Intent mIntent = getIntent();
+        getEvents(mIntent.getStringExtra("type"));
 
         mAdapter = new EventRecyclerAdapter(null);
         mRecyclerView.setAdapter(mAdapter);
