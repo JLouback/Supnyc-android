@@ -42,6 +42,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         events = bundle.getParcelableArrayList("events");
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.setOnMarkerClickListener(this);
 
         LatLng nyc = new LatLng(40.7127837, -74.00594130000002);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(nyc, 12));
@@ -74,7 +75,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
     }
 
     @Override
-    public boolean onMarkerClick(final Marker marker) {
+    public boolean onMarkerClick(Marker marker) {
         //get event corresponding to marker
         int index = Integer.parseInt(marker.getTitle());
         Event event = events.get(index);
@@ -92,7 +93,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         String addressTime = event.getAddress()+"\n"+ event.getFormattedStart()+"\n"+event.getFormattedEnd();
         info.setText(addressTime);
 
-        v.setVisibility(View.VISIBLE);
+        findViewById(R.id.map_card).setVisibility(View.VISIBLE);
         return true;
     }
 }
