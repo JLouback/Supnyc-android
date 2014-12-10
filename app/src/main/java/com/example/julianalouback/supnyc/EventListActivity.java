@@ -7,7 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.julianalouback.supnyc.Models.Event;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +22,10 @@ import java.util.List;
 
 public class EventListActivity extends Activity {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private EventRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +38,9 @@ public class EventListActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO:get the dataset here
-        //call the get events
-        //shouldn't continue this until volley returns
-        List<Event> events = generateTestEvents();
+        getEvents("party");
 
-        mAdapter = new EventRecyclerAdapter(events);
+        mAdapter = new EventRecyclerAdapter(null);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -70,10 +77,53 @@ public class EventListActivity extends Activity {
         return events;
     }
 
-    public List<Event> getEvents(String type){
-        return null;
+    public void getEvents(String type){
+        String url = "http://supnyc.elasticbeanstalk.com/events_api?type=party&start=1418970300000&end=1421000000000";
+        JsonArrayRequest req = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        mAdapter.setItemList(jsonToEvent(response));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener()  {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle error
+
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req,
+                tag_json_arry);
+
         //all that json array shit
         //mAdapter.setItemList(events)
         //mAdapter.notifyDataSetChanged();
     }
+
+    public List<Event> jsonToEvent(JSONArray jsonEvents){
+        List<Event> events = new ArrayList<Event>();
+        Event event;
+        if (jsonEvents != null) {
+            for (int i=0;i<jsonEvents.length();i++){
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = jsonEvents.getJSONObject(i);
+                    //wtf to do add if
+                    event = new Event(jsonObject.getString("title"),"blah",
+                            jsonObject.getString("address"),jsonObject.getString("host_username"),
+                            Long.parseLong(jsonObject.getString("start")),Long.parseLong("4893578932398"),
+                            jsonObject.getString("type"),"www.blah.com");
+                    events.add(event);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return events;
+    }
+
 }

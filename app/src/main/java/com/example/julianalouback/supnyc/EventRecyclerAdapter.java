@@ -81,7 +81,11 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        if(mDataset == null){
+            return 0;
+        }
+        else
+            return mDataset.size();
     }
 
     public InputStream getRequest(String url){
