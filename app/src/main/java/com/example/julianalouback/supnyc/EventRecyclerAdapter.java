@@ -98,4 +98,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return bis;
     }
 
+    public void setItemList(List<Event> events){
+        this.mDataset = events;
+    }
+
 }
