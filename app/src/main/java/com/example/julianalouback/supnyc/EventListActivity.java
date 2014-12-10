@@ -29,6 +29,7 @@ public class EventListActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO:get the dataset here
+
         List<Event> events = generateTestEvents();
 
         mAdapter = new EventRecyclerAdapter(events);
