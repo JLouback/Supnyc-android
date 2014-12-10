@@ -1,5 +1,12 @@
 package com.example.julianalouback.supnyc;
 
+<<<<<<< HEAD
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+=======
+>>>>>>> 8fa9c4f56872dcceb069b2c5e67a179fbc52f833
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.julianalouback.supnyc.Models.Event;
 
+<<<<<<< HEAD
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+=======
+import java.util.ArrayList;
+>>>>>>> 8fa9c4f56872dcceb069b2c5e67a179fbc52f833
 
 /**
  * Created by moldy530 on 11/22/14.
@@ -22,6 +33,7 @@ import java.util.ArrayList;
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder> {
 
     private ArrayList<Event> mDataset;
+    private Context mCtx;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -43,8 +55,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventRecyclerAdapter(ArrayList<Event> myDataset) {
+    public EventRecyclerAdapter(ArrayList<Event> myDataset, Context ctx) {
         mDataset = myDataset; //this will be passed the dataset
+        mCtx = ctx;
     }
 
     // Create new views (invoked by the layout manager)
