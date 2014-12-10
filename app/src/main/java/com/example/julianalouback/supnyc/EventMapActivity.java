@@ -35,6 +35,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_map);
+        findViewById(R.id.map_card).setVisibility(View.GONE);
 
         //Get list of events to mark on map
         Bundle bundle = getIntent().getExtras();
@@ -79,8 +80,8 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         Event event = events.get(index);
         LatLng latlng = new LatLng(event.getLatitude(), event.getLongitude());
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = vi.inflate(R.layout.event_map_card, null);
+
+        View v = findViewById(R.id.map_card);
 
         // fill in any details dynamically here
         TextView title = (TextView) v.findViewById(R.id.map_event_title);
@@ -91,11 +92,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         String addressTime = event.getAddress()+"\n"+ event.getFormattedStart()+"\n"+event.getFormattedEnd();
         info.setText(addressTime);
 
-        // insert into main view
-        LinearLayout insertPoint = (LinearLayout) findViewById(R.id.map_card);
-        insertPoint.addView(v);
-        insertPoint.bringToFront();
-            //handle click here
+        v.setVisibility(View.VISIBLE);
         return true;
     }
 }
