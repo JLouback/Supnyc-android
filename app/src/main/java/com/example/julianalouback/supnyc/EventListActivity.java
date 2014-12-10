@@ -29,7 +29,8 @@ public class EventListActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO:get the dataset here
-
+        //call the get events
+        //shouldn't continue this until volley returns
         List<Event> events = generateTestEvents();
 
         mAdapter = new EventRecyclerAdapter(events);
@@ -71,5 +72,8 @@ public class EventListActivity extends Activity {
 
     public List<Event> getEvents(String type){
         return null;
+        //all that json array shit
+        //mAdapter.setItemList(events)
+        //mAdapter.notifyDataSetChanged();
     }
 }
