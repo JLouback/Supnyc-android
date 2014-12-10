@@ -91,7 +91,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         info.setText(addressTime);
 
         // insert into main view
-        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.map);
+        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.map_card);
         insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
             //handle click here
         return true;

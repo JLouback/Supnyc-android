@@ -14,5 +14,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:name="com.google.android.gms.maps.MapFragment"/>
+    
+    <LinearLayout
+        android:id="@+id/map_card"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="200dp">
+
+    </LinearLayout>
 
 </RelativeLayout>

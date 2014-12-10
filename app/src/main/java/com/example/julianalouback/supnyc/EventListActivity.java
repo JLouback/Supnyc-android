@@ -121,7 +121,7 @@ public class EventListActivity extends Activity {
     }
 
     public void getEvents(String type){
-        String url = "http://supnyc.elasticbeanstalk.com/events_api?type=party&start=1418016151000&end=1420435351000";
+        String url = "http://supnyc.elasticbeanstalk.com/events_api?type=" + type + "&start=1418016151000&end=1420435351000";
         JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
