@@ -3,13 +3,21 @@
     package="com.example.julianalouback.supnyc" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
     <application
         android:name="com.example.julianalouback.supnyc.AppController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <activity
             android:name=".LoadingPageActivity"
             android:label="@string/app_name"
@@ -29,8 +37,18 @@
         <activity
             android:name=".EventListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/CustomActionBarTheme" >
+            android:theme="@style/CustomActionBarTheme"
+            android:label="">
         </activity>
+        <activity
+            android:name=".EventMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/CustomActionBarTheme"
+            android:label="">
+        </activity>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBLrALK3QGCaj_8McYs7Zq52SbD1VF1eX0"/>
     </application>
 
 </manifest>

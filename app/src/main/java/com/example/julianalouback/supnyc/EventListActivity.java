@@ -3,11 +3,14 @@ package com.example.julianalouback.supnyc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,7 @@ public class EventListActivity extends Activity {
     private RecyclerView mRecyclerView;
     private EventRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private String mType;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -84,8 +89,9 @@ public class EventListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_list_menu_actions, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -94,23 +100,15 @@ public class EventListActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == R.id.map_display) {
+            Intent intent = new Intent(getBaseContext(), EventMapActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("events", mAdapter.getDataset());
+            intent.putExtras(bundle);
+            startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    public List<Event> generateTestEvents(){
-        List<Event> events = new ArrayList<Event>();
-        //String title, String desc, String address, String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl
-        for(int i = 0; i<10; i++){
-            events.add(new Event("Title", "Description", "Address", "Host", (long) 100000, (long) 150000, "Type", "URL"));
-        }
-
-        return events;
     }
 
     public void getEvents(String type){
@@ -136,8 +134,8 @@ public class EventListActivity extends Activity {
                 tag_json_arry);
     }
 
-    public List<Event> jsonToEvent(JSONArray jsonEvents){
-        List<Event> events = new ArrayList<Event>();
+    public ArrayList<Event> jsonToEvent(JSONArray jsonEvents){
+        ArrayList<Event> events = new ArrayList<Event>();
         Event event;
         if (jsonEvents != null) {
             for (int i=0;i<jsonEvents.length();i++){
@@ -153,12 +151,26 @@ public class EventListActivity extends Activity {
                     if(jsonObject.has("end")) {
                         end = jsonObject.getString("end");
                     }
+                    Geocoder coder = new Geocoder(this);
+                    List<Address> address = coder.getFromLocationName(jsonObject.getString("address"),5);
+                    if (address != null) {
+                        Address location = address.get(0);
+                    }
+                    Address location = address.get(0);
+                    location.getLatitude();
+                    location.getLongitude();
                     event = new Event(jsonObject.getString("title"),description,
-                            jsonObject.getString("address"),jsonObject.getString("host_username"),
+                            jsonObject.getString("address"),
+                            location.getLatitude(),location.getLongitude(),
+                            jsonObject.getString("host_username"),
                             Long.parseLong(jsonObject.getString("start")),Long.parseLong(end),
-                            jsonObject.getString("type"),"www.blah.com");
+                            jsonObject.getString("type"),"www.blah.com",
+                            Long.parseLong(jsonObject.getString("like_count")),
+                            Long.parseLong(jsonObject.getString("going_count")));
                     events.add(event);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

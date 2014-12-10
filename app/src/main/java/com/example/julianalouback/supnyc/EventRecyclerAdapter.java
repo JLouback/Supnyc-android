@@ -20,6 +20,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.HttpClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder> {
 
-    private List<Event> mDataset;
+    private ArrayList<Event> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -48,7 +49,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventRecyclerAdapter(List<Event> myDataset) {
+    public EventRecyclerAdapter(ArrayList<Event> myDataset) {
         mDataset = myDataset; //this will be passed the dataset
     }
 
@@ -101,9 +102,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return bis;
     }
 
-    public void setItemList(List<Event> events){
+    public void setItemList(ArrayList<Event> events){
         this.mDataset = events;
     }
     public void removeItem(int position) {this.mDataset.remove(position);}
     public Event getItem(int position) {return this.mDataset.get(position);}
+    public ArrayList<Event> getDataset() {return this.mDataset;}
 }

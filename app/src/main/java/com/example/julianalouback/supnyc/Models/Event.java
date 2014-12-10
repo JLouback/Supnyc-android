@@ -1,5 +1,9 @@
 package com.example.julianalouback.supnyc.Models;
 
+import android.location.Geocoder;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +11,7 @@ import java.util.Date;
 /**
  * Created by moldy530 on 11/22/14.
  */
-public class Event {
+public class Event implements Parcelable {
     public static final String[] TYPES = new String[] {
             "party","bar","dining","culture"
     };
@@ -27,17 +31,69 @@ public class Event {
     private Long mLikeCount;
     private Long mIntendToGoCount;
 
-    public Event(String title, String desc, String address, String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl){
+
+    public Event(String title, String desc, String address, double mLatitude, double mLongitude,
+                 String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl,
+                 Long mLikeCount, Long mIntendToGoCount){
         this.mTitle = title;
         this.mDescription = desc;
         this.mAddress = address;
+        this.mLatitude = mLatitude;
+        this.mLongitude = mLongitude;
         this.mHostUsername = mHostUsername;
         this.mStart = mStart;
         this.mEnd = mEnd;
         this.mType = mType;
         this.mImageUrl = mImageUrl;
+        this.mLikeCount = mLikeCount;
+        this.mIntendToGoCount = mIntendToGoCount;
     }
 
+    public Event(Parcel in) {
+        this.mTitle = in.readString();
+        this.mDescription = in.readString();
+        this.mAddress = in.readString();
+        this.mLatitude = in.readDouble();
+        this.mLongitude = in.readDouble();
+        this.mHostUsername = in.readString();
+        this.mStart = in.readLong();
+        this.mEnd = in.readLong();
+        this.mType = in.readString();
+        this.mImageUrl = in.readString();
+        this.mLikeCount = in.readLong();
+        this.mIntendToGoCount = in.readLong();
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mAddress);
+        dest.writeDouble(mLatitude);
+        dest.writeDouble(mLongitude);
+        dest.writeString(mHostUsername);
+        dest.writeLong(mStart);
+        dest.writeLong(mEnd);
+        dest.writeString(mType);
+        dest.writeString(mImageUrl);
+        dest.writeLong(mLikeCount);
+        dest.writeLong(mIntendToGoCount);
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>()
+    {
+        public Event createFromParcel(Parcel in)
+        {
+            return new Event(in);
+        }
+        public Event[] newArray(int size)
+        {
+            return new Event[size];
+        }
+    };
+
+    public int describeContents() {
+        return 0;
+    }
 
     public void setTitle(String title) { mTitle = title; }
     public String getTitle() { return mTitle; }
