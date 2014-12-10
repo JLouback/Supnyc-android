@@ -1,11 +1,5 @@
 package com.example.julianalouback.supnyc;
 
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +9,7 @@ import android.widget.TextView;
 
 import com.example.julianalouback.supnyc.Models.Event;
 
-<<<<<<< HEAD
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.client.HttpClient;
-
 import java.util.ArrayList;
-=======
->>>>>>> 42af7bb49e2a69fa2383d66866d736b279a0ddf7
-import java.util.List;
 
 /**
  * Created by moldy530 on 11/22/14.
