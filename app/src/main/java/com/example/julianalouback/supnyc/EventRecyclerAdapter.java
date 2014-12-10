@@ -42,7 +42,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             vTitleView = (TextView) v.findViewById(R.id.event_title);
             vAddressView = (TextView) v.findViewById(R.id.txtAddress);
             vTimeView = (TextView) v.findViewById(R.id.txtTime);
-            vPictureLayout = (LinearLayout) v.findViewById(R.id.picture);
+            vPictureLayout = (LinearLayout) v.findViewById(R.id.event_image);
         }
     }
 
