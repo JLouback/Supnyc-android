@@ -78,7 +78,7 @@ public class EventListActivity extends Activity {
     }
 
     public void getEvents(String type){
-        String url = "http://supnyc.elasticbeanstalk.com/events_api?type=party&start=1418970300000&end=1421000000000";
+        String url = "http://supnyc.elasticbeanstalk.com/events_api?type=party&start=1418016151000&end=1420435351000";
         JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -98,10 +98,6 @@ public class EventListActivity extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req,
                 tag_json_arry);
-
-        //all that json array shit
-        //mAdapter.setItemList(events)
-        //mAdapter.notifyDataSetChanged();
     }
 
     public List<Event> jsonToEvent(JSONArray jsonEvents){
@@ -112,10 +108,18 @@ public class EventListActivity extends Activity {
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = jsonEvents.getJSONObject(i);
-                    //wtf to do add if
-                    event = new Event(jsonObject.getString("title"),"blah",
+                    //wtf to do add if remove this later
+                    String description = "No description available";
+                    if(jsonObject.has("description")) {
+                        description = jsonObject.getString("description");
+                    }
+                    String end = "1420099200000";
+                    if(jsonObject.has("end")) {
+                        end = jsonObject.getString("end");
+                    }
+                    event = new Event(jsonObject.getString("title"),description,
                             jsonObject.getString("address"),jsonObject.getString("host_username"),
-                            Long.parseLong(jsonObject.getString("start")),Long.parseLong("4893578932398"),
+                            Long.parseLong(jsonObject.getString("start")),Long.parseLong(end),
                             jsonObject.getString("type"),"www.blah.com");
                     events.add(event);
                 } catch (JSONException e) {
