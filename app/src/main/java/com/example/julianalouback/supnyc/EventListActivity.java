@@ -67,4 +67,8 @@ public class EventListActivity extends Activity {
 
         return events;
     }
+
+    public List<Event> getEvents(String type){
+        return null;
+    }
 }
