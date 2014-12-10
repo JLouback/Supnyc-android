@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.julianalouback.supnyc.Models.Event;
@@ -91,8 +92,8 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         info.setText(addressTime);
 
         // insert into main view
-        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.map_card);
-        insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+        LinearLayout insertPoint = (LinearLayout) findViewById(R.id.map_card);
+        insertPoint.addView(v);
             //handle click here
         return true;
     }
