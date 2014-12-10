@@ -1,6 +1,8 @@
 package com.example.julianalouback.supnyc;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +75,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         if(event.getUserLiked()){
             holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite, 0);
         }
+        //TODO: unhard code this
         String url = "http://cdn0.cosmosmagazine.com/wp-content/uploads/2013/05/Non-stop-party-COSMOS-Science-Fiction.jpg";
         loadImageBackground(url, holder);
     }
@@ -99,7 +102,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
                 if (response.getBitmap() != null) {
-                    holder.vPictureLayout.setBackground(new BitmapDrawable(response.getBitmap()));
+                    BitmapDrawable bmd = new BitmapDrawable(response.getBitmap());
+                    bmd.setGravity(Gravity.FILL);
+                    holder.vPictureLayout.setBackground(bmd);
                 }
             }
         });
