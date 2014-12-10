@@ -94,6 +94,7 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         // insert into main view
         LinearLayout insertPoint = (LinearLayout) findViewById(R.id.map_card);
         insertPoint.addView(v);
+        insertPoint.bringToFront();
             //handle click here
         return true;
     }
