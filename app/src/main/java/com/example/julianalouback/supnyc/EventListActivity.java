@@ -49,9 +49,10 @@ public class EventListActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         Intent mIntent = getIntent();
-        getEvents(mIntent.getStringExtra("type"));
+        this.mType = mIntent.getStringExtra("type");
+        getEvents(mType);
 
-        mAdapter = new EventRecyclerAdapter(null);
+        mAdapter = new EventRecyclerAdapter(null, getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
 
         SwipeDismissRecyclerViewTouchListener touchListener =

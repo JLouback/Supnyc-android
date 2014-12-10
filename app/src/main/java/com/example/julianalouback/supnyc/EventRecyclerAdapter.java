@@ -1,10 +1,8 @@
 package com.example.julianalouback.supnyc;
 
-
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,18 +11,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.example.julianalouback.supnyc.Models.Event;
 
-<<<<<<< HEAD
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.client.HttpClient;
-
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-=======
->>>>>>> 42af7bb49e2a69fa2383d66866d736b279a0ddf7
-import java.util.List;
+
 
 /**
  * Created by moldy530 on 11/22/14.
@@ -32,6 +26,7 @@ import java.util.List;
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder> {
 
     private ArrayList<Event> mDataset;
+    private Context mCtx;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -48,12 +43,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             vTitleView = (TextView) v.findViewById(R.id.event_title);
             vDescriptionView = (TextView) v.findViewById(R.id.txtDescription);
             vTimeAddressView = (TextView) v.findViewById(R.id.txtAddressAndTime);
+            vPictureLayout = (LinearLayout) v.findViewById(R.id.event_image);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventRecyclerAdapter(ArrayList<Event> myDataset) {
+    public EventRecyclerAdapter(ArrayList<Event> myDataset, Context ctx) {
         mDataset = myDataset; //this will be passed the dataset
+        mCtx = ctx;
     }
 
     // Create new views (invoked by the layout manager)
@@ -82,7 +79,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         if(event.getUserLiked()){
             holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite, 0);
         }
-        //TODO: get and set the background of the card
+        String url = "http://cdn0.cosmosmagazine.com/wp-content/uploads/2013/05/Non-stop-party-COSMOS-Science-Fiction.jpg";
+        loadImageBackground(url, holder);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -95,7 +93,22 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             return mDataset.size();
     }
 
-    private void loadImage(String url){
+    private void loadImageBackground(String url, final ViewHolder holder){
+        ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+        imageLoader.get(url, new ImageLoader.ImageListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
+                if (response.getBitmap() != null) {
+                    holder.vPictureLayout.setBackground(new BitmapDrawable(response.getBitmap()));
+                }
+            }
+        });
 
     }
 
