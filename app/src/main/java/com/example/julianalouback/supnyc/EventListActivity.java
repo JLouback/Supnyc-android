@@ -52,7 +52,7 @@ public class EventListActivity extends Activity {
         this.mType = mIntent.getStringExtra("type");
         getEvents(mType);
 
-        mAdapter = new EventRecyclerAdapter(null, getApplicationContext());
+        mAdapter = new EventRecyclerAdapter(null);
         mRecyclerView.setAdapter(mAdapter);
 
         SwipeDismissRecyclerViewTouchListener touchListener =
