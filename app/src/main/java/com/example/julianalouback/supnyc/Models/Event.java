@@ -30,6 +30,7 @@ public class Event implements Parcelable {
     private String mImageUrl;
     private Long mLikeCount;
     private Long mIntendToGoCount;
+    private boolean userLiked;
 
 
     public Event(String title, String desc, String address, double mLatitude, double mLongitude,
@@ -93,6 +94,13 @@ public class Event implements Parcelable {
 
     public int describeContents() {
         return 0;
+    }
+
+    public void setUserLiked(boolean liked){
+        this.userLiked = liked;
+    }
+    public boolean getUserLiked(){
+        return this.userLiked;
     }
 
     public void setTitle(String title) { mTitle = title; }

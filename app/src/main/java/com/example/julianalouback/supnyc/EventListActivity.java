@@ -64,11 +64,19 @@ public class EventListActivity extends Activity {
                             }
 
                             @Override
-                            public void onDismiss(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                            public void onDismiss(RecyclerView recyclerView, int[] reverseSortedPositions, boolean dismissRight) {
                                 for (int position : reverseSortedPositions) {
                                     //TODO: update the server for the item at this location
-                                    mAdapter.removeItem(position);
-                                    mAdapter.notifyItemRemoved(position);
+                                    if(dismissRight){
+                                        Event event = mAdapter.getItem(position);
+                                        event.setUserLiked(true);
+                                        mAdapter.setItemInList(position, event);
+                                        mAdapter.notifyItemChanged(position);
+                                    }
+                                    else {
+                                        mAdapter.removeItem(position);
+                                        mAdapter.notifyItemRemoved(position);
+                                    }
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }

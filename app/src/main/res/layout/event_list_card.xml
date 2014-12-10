@@ -39,6 +39,7 @@
                 android:paddingLeft="10dp"
                 android:textColor="#FFFFFFFF"
                 android:fontFamily="sans-serif-thin"
+                android:paddingRight="10dp"
                 android:layout_alignParentBottom="true"
                 />
 
