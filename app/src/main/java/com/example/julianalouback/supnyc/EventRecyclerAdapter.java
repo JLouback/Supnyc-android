@@ -1,11 +1,11 @@
 package com.example.julianalouback.supnyc;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.julianalouback.supnyc.Models.Event;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.client.HttpClient;
 
 import java.util.List;
 
@@ -75,6 +70,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         holder.vTimeAddressView.setText(event.getAddress() + "\n" + time);
         holder.vDescriptionView.setText(event.getDescription());
         holder.vTitleView.setText(event.getTitle());
+        if(event.getUserLiked()){
+            holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite, 0);
+        }
         //TODO: get and set the background of the card
     }
 
@@ -88,22 +86,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             return mDataset.size();
     }
 
-    public InputStream getRequest(String url){
-        HttpGet httpGet = new HttpGet(url);
-        BufferedInputStream bis = null;
-        try {
-            HttpClient client = new DefaultHttpClient();
-            HttpResponse response = client.execute(httpGet);
-            bis = new BufferedInputStream(response.getEntity().getContent());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return bis;
+    private void loadImage(String url){
+
     }
 
     public void setItemList(List<Event> events){
         this.mDataset = events;
     }
     public void removeItem(int position) {this.mDataset.remove(position);}
+    public void setItemInList(int position, Event event) {this.mDataset.set(position, event);}
     public Event getItem(int position) {return this.mDataset.get(position);}
+    public List<Event> getDataSet() {return this.mDataset;}
 }

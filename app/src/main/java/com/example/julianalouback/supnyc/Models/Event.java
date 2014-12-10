@@ -26,6 +26,7 @@ public class Event {
     private String mImageUrl;
     private Long mLikeCount;
     private Long mIntendToGoCount;
+    private boolean userLiked;
 
     public Event(String title, String desc, String address, String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl){
         this.mTitle = title;
@@ -38,6 +39,12 @@ public class Event {
         this.mImageUrl = mImageUrl;
     }
 
+    public void setUserLiked(boolean liked){
+        this.userLiked = liked;
+    }
+    public boolean getUserLiked(){
+        return this.userLiked;
+    }
 
     public void setTitle(String title) { mTitle = title; }
     public String getTitle() { return mTitle; }
