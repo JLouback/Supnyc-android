@@ -3,7 +3,9 @@ package com.example.julianalouback.supnyc;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +35,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         protected TextView vTitleView;
-        protected TextView vAddressView;
-        protected TextView vTimeView;
+        protected TextView vDescriptionView;
+        protected TextView vTimeAddressView;
         protected LinearLayout vPictureLayout;
 
         public ViewHolder(View v) {
             super(v);
             vTitleView = (TextView) v.findViewById(R.id.event_title);
-            vAddressView = (TextView) v.findViewById(R.id.txtAddress);
-            vTimeView = (TextView) v.findViewById(R.id.txtTime);
-            vPictureLayout = (LinearLayout) v.findViewById(R.id.event_image);
+            vDescriptionView = (TextView) v.findViewById(R.id.txtDescription);
+            vTimeAddressView = (TextView) v.findViewById(R.id.txtAddressAndTime);
         }
     }
 
@@ -71,16 +72,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         // - replace the contents of the view with that element
         Event event = mDataset.get(position);
         String time = event.getFormattedStart() + " - " + event.getFormattedEnd();
-        holder.vTimeView.setText(time);
-        holder.vAddressView.setText(event.getAddress());
+        holder.vTimeAddressView.setText(event.getAddress() + "\n" + time);
+        holder.vDescriptionView.setText(event.getDescription());
         holder.vTitleView.setText(event.getTitle());
-        //TODO: AsyncTask to run and to set the background
-        /*
-            InputStream is = getRequest(url);
-            Bitmap bm = BitmapFactory.decodeStream(is);
-         */
-        holder.vPictureLayout.setBackgroundColor(Color.BLACK);
-
+        //TODO: get and set the background of the card
     }
 
     // Return the size of your dataset (invoked by the layout manager)
