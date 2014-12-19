@@ -15,19 +15,21 @@
         android:weightSum="100"
         >
 
-        <LinearLayout
-            android:id="@+id/event_image"
-
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50"
             >
 
-            <Space
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/event_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_height="100dp"
+                android:background="@drawable/party_image"
+                android:scaleType="centerCrop">
+
+                </com.android.volley.toolbox.NetworkImageView>
 
             <TextView
                 android:id="@+id/event_title"
@@ -43,7 +45,7 @@
                 android:layout_alignParentBottom="true"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="horizontal"

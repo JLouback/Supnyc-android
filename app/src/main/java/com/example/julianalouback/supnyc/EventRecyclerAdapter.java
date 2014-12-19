@@ -6,11 +6,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.example.julianalouback.supnyc.Models.Event;
 
 import java.util.ArrayList;
@@ -31,14 +31,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         protected TextView vTitleView;
         protected TextView vDescriptionView;
         protected TextView vTimeAddressView;
-        protected LinearLayout vPictureLayout;
+        protected NetworkImageView vPictureLayout; //TODO: switch this to NetworkImage
 
         public ViewHolder(View v) {
             super(v);
             vTitleView = (TextView) v.findViewById(R.id.event_title);
             vDescriptionView = (TextView) v.findViewById(R.id.txtDescription);
             vTimeAddressView = (TextView) v.findViewById(R.id.txtAddressAndTime);
-            vPictureLayout = (LinearLayout) v.findViewById(R.id.event_image);
+            vPictureLayout = (NetworkImageView) v.findViewById(R.id.event_image);
         }
     }
 
@@ -90,22 +90,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     private void loadImageBackground(String url, final ViewHolder holder){
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-        imageLoader.get(url, new ImageLoader.ImageListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
-                if (response.getBitmap() != null) {
-                    BitmapDrawable bmd = new BitmapDrawable(response.getBitmap());
-                    bmd.setGravity(Gravity.FILL);
-                    holder.vPictureLayout.setBackground(bmd);
-                }
-            }
-        });
+        holder.vPictureLayout.setImageUrl(url, imageLoader);
 
     }
 
