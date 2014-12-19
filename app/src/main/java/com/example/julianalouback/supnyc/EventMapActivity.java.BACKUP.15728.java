@@ -93,7 +93,12 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         String addressTime = event.getAddress()+"\n"+ event.getFormattedStart()+"\n"+event.getFormattedEnd();
         info.setText(addressTime);
 
+<<<<<<< HEAD
+        v.setVisibility(View.VISIBLE);
+        v.bringToFront();
+=======
         findViewById(R.id.map_card).setVisibility(View.VISIBLE);
+>>>>>>> 9ad1b21a5437ad7815d05ef8fe86b9e85ed6715e
         return true;
     }
 }
