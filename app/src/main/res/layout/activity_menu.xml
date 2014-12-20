@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/party_button"
+                android:src="@drawable/ic_party_button"
                 android:background="@null"
                 android:scaleType="fitCenter"
                 />
@@ -52,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/culture_button"
+                android:src="@drawable/ic_culture_button"
                 android:background="@null"
                 android:scaleType="fitCenter"/>
         </LinearLayout>
@@ -66,18 +66,19 @@
             <ImageButton
                 android:id="@+id/bars_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/bars_button"
+                android:src="@drawable/ic_bars_button"
                 android:background="@null"
                 android:scaleType="fitCenter"
+
                 />
             <ImageButton
                 android:id="@+id/dining_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:src="@drawable/dining_button"
+                android:src="@drawable/ic_dining_button"
                 android:background="@null"
                 android:scaleType="fitCenter"/>
             </LinearLayout>

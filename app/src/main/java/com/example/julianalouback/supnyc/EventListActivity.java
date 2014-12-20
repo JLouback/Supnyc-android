@@ -1,5 +1,6 @@
 package com.example.julianalouback.supnyc;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class EventListActivity extends Activity {
     private EventRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String mType;
+    private View mActionBarView;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -42,6 +44,14 @@ public class EventListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        View mActionBarView = getLayoutInflater().inflate(R.layout.view_as_map_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.event_list_recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
@@ -88,7 +98,17 @@ public class EventListActivity extends Activity {
                 new OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(EventListActivity.this, "Clicked " + mAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("range_key", mAdapter.getItem(position).getRangeKey());
+                        bundle.putString("title", mAdapter.getItem(position).getTitle());
+                        bundle.putString("description", mAdapter.getItem(position).getDescription());
+                        bundle.putString("address", mAdapter.getItem(position).getAddress());
+                        bundle.putString("hours", mAdapter.getItem(position).getFormattedStart() + " - " + mAdapter.getItem(position).getFormattedEnd());
+                        bundle.putString("url", mAdapter.getItem(position).getImageUrl());
+                        Intent intent = new Intent(getBaseContext(), EventDetails.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        //Toast.makeText(EventListActivity.this, "Clicked " + mAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
                     }
                 }));
 
@@ -108,15 +128,7 @@ public class EventListActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if(id == R.id.map_display) {
-            Intent intent = new Intent(getBaseContext(), EventMapActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("events", mAdapter.getDataset());
-            intent.putExtras(bundle);
-            startActivity(intent);
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -165,17 +177,24 @@ public class EventListActivity extends Activity {
                     if (address != null) {
                         Address location = address.get(0);
                     }
+
                     Address location = address.get(0);
                     location.getLatitude();
                     location.getLongitude();
+
+                    String image_url = "http://www.cootharababeefgenes.com.au/assets/placeholder-81127a71a07cd5c12cde6fc9ac9b1b6e.png";
+                    if(jsonObject.has("image_url")){
+                        image_url = jsonObject.getString("image_url");
+                    }
                     event = new Event(jsonObject.getString("title"),description,
                             jsonObject.getString("address"),
                             location.getLatitude(),location.getLongitude(),
                             jsonObject.getString("host_username"),
                             Long.parseLong(jsonObject.getString("start")),Long.parseLong(end),
-                            jsonObject.getString("type"),"www.blah.com",
+                            jsonObject.getString("type"),image_url,
                             Long.parseLong(jsonObject.getString("like_count")),
-                            Long.parseLong(jsonObject.getString("going_count")));
+                            Long.parseLong(jsonObject.getString("going_count")),
+                            jsonObject.getString("range_key"));
                     events.add(event);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -218,6 +237,17 @@ public class EventListActivity extends Activity {
         @Override
         public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
         }
+    }
+
+    public void viewAsMap(View v){
+        Intent intent = new Intent(getBaseContext(), EventMapActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("events", mAdapter.getDataset());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+    public void goBack(View v){
+        super.onBackPressed();
     }
 
 }

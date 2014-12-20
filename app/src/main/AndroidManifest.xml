@@ -34,7 +34,7 @@
             android:name=".MenuActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_menu"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name=".EventListActivity"
@@ -57,7 +57,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBLrALK3QGCaj_8McYs7Zq52SbD1VF1eX0" />
+            android:value="AIzaSyDpE8yOddWFXacEHm40LrOxWs3z1heVAXc" />
 
 
 

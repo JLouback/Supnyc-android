@@ -1,9 +1,11 @@
 package com.example.julianalouback.supnyc;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -14,24 +16,35 @@ public class EventDetails extends Activity {
     private TextView vTitle;
     private TextView vHours;
     private TextView vDescription;
+    private TextView vAddress;
+    private View mActionBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.app_transparent));
+//displaying custom ActionBar
+        View mActionBarView = getLayoutInflater().inflate(R.layout.details_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
         vTitle = (TextView) findViewById(R.id.details_title);
         vHours =  (TextView) findViewById(R.id.details_hours);
         vDescription = (TextView) findViewById(R.id.details_description);
         vImage = (NetworkImageView) findViewById(R.id.details_image);
+        vAddress = (TextView) findViewById(R.id.details_address);
 
         Bundle bundle = getIntent().getExtras();
         vTitle.setText(bundle.getString("title"));
         vHours.setText(bundle.getString("hours"));
         vDescription.setText(bundle.getString("description"));
-        //TODO: switch to unhardcoded one
-        String url = "http://cdn0.cosmosmagazine.com/wp-content/uploads/2013/05/Non-stop-party-COSMOS-Science-Fiction.jpg";
+        vAddress.setText(bundle.getString("address"));
+        String url = bundle.getString("url");
         vImage.setImageUrl(url, AppController.getInstance().getImageLoader());
-        //vImage.setImageUrl(bundle.getString("url"), AppController.getInstance().getImageLoader());
 
     }
 
@@ -56,5 +69,9 @@ public class EventDetails extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goBack(View v){
+        super.onBackPressed();
     }
 }

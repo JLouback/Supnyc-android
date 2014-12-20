@@ -9,7 +9,7 @@
         android:layout_height="0dp"
         android:layout_weight=".3"
         android:layout_width="match_parent"
-        android:background="@drawable/party_image"
+        android:background="@color/app_black"
         />
 
     <LinearLayout
@@ -22,39 +22,87 @@
         <TextView
             android:id="@+id/details_title"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text ="Title"
             android:textColor="@color/app_black"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:paddingTop="5dp"
             android:paddingLeft="16dp"
             android:fontFamily="sans-serif-bold"
             >
         </TextView>
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Where:"
+            android:textColor="@color/app_black"
+            android:textSize="22sp"
+            android:paddingTop="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="sans-serif-bold"
+            ></TextView>
+        <TextView
+            android:id="@+id/details_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="123 Fake Street\nNew York, NY 10027"
+            android:textColor="@color/app_black"
+            android:textSize="20sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="sans-serif-thin"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="When:"
+            android:textColor="@color/app_black"
+            android:textSize="22sp"
+            android:paddingTop="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="sans-serif-bold"
+            ></TextView>
+        <TextView
             android:id="@+id/details_hours"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".25"
+            android:layout_height="wrap_content"
             android:text = "Hours"
             android:textColor="@color/app_black"
             android:textSize="20sp"
-            android:paddingTop="5dp"
             android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:fontFamily="sans-serif-thin"
             />
         <TextView
-            android:id="@+id/details_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What:"
+            android:textColor="@color/app_black"
+            android:textSize="22sp"
+            android:paddingTop="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="sans-serif-bold"
+            ></TextView>
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".75"
-            android:text = "Description"
-            android:textColor="@color/app_black"
-            android:textSize="20sp"
-            android:paddingTop="5dp"
-            android:paddingLeft="16dp"
-            android:fontFamily="sans-serif-thin"
-            />
+            android:layout_weight=".64">
+            <TextView
+                android:id="@+id/details_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "Description"
+                android:textColor="@color/app_black"
+                android:textSize="20sp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:fontFamily="sans-serif-thin"
+                />
+        </ScrollView>
+
+
 
     </LinearLayout>
 

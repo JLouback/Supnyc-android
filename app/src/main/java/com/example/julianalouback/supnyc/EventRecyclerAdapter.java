@@ -47,6 +47,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         mDataset = myDataset; //this will be passed the dataset
     }
 
+
     // Create new views (invoked by the layout manager)
     @Override
     public EventRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -71,10 +72,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         holder.vDescriptionView.setText(event.getDescription());
         holder.vTitleView.setText(event.getTitle());
         if(event.getUserLiked()){
-            holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite, 0);
+            holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite_toggled, 0);
         }
-        //TODO: unhard code this
-        String url = "http://cdn0.cosmosmagazine.com/wp-content/uploads/2013/05/Non-stop-party-COSMOS-Science-Fiction.jpg";
+        String url = event.getImageUrl();
         loadImageBackground(url, holder);
     }
 

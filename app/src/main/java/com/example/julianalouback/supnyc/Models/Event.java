@@ -18,6 +18,7 @@ public class Event implements Parcelable {
 
     private static SimpleDateFormat sSimpleDateFormat = new SimpleDateFormat("MMM dd HH:mm");
 
+    private String mRangeKey;
     private String mTitle;
     private String mDescription;
     private String mAddress;
@@ -35,7 +36,7 @@ public class Event implements Parcelable {
 
     public Event(String title, String desc, String address, double mLatitude, double mLongitude,
                  String mHostUsername, Long mStart, Long mEnd, String mType, String mImageUrl,
-                 Long mLikeCount, Long mIntendToGoCount){
+                 Long mLikeCount, Long mIntendToGoCount, String rangeKey){
         this.mTitle = title;
         this.mDescription = desc;
         this.mAddress = address;
@@ -48,6 +49,7 @@ public class Event implements Parcelable {
         this.mImageUrl = mImageUrl;
         this.mLikeCount = mLikeCount;
         this.mIntendToGoCount = mIntendToGoCount;
+        this.mRangeKey = rangeKey;
     }
 
     public Event(Parcel in) {
@@ -63,6 +65,7 @@ public class Event implements Parcelable {
         this.mImageUrl = in.readString();
         this.mLikeCount = in.readLong();
         this.mIntendToGoCount = in.readLong();
+        this.mRangeKey = in.readString();
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -78,6 +81,7 @@ public class Event implements Parcelable {
         dest.writeString(mImageUrl);
         dest.writeLong(mLikeCount);
         dest.writeLong(mIntendToGoCount);
+        dest.writeString(mRangeKey);
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>()
@@ -150,5 +154,8 @@ public class Event implements Parcelable {
     public void setIntendToGoCount(Long intendToGoCount) { mIntendToGoCount = intendToGoCount; }
     public void setIntendToGoCount(String intendToGoCount) { mIntendToGoCount = Long.valueOf(intendToGoCount); }
     public Long getIntendToGoCount() { return mIntendToGoCount; }
+
+    public void setRangeKey(String key) { mRangeKey = key; }
+    public String getRangeKey() { return this.mRangeKey; }
 
 }

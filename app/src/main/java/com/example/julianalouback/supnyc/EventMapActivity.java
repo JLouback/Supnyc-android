@@ -1,5 +1,6 @@
 package com.example.julianalouback.supnyc;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -30,12 +32,22 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
 
     private ArrayList<Event> events;
     private GoogleMap map;
+    private LinearLayout vEvent;
+    private int eventViewing = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_map);
         findViewById(R.id.map_card).setVisibility(View.GONE);
+        LinearLayout vEvent = (LinearLayout) findViewById(R.id.map_card);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+//displaying custom ActionBar
+        View mActionBarView = getLayoutInflater().inflate(R.layout.view_as_list_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         //Get list of events to mark on map
         Bundle bundle = getIntent().getExtras();
@@ -52,13 +64,36 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
             //set marker with latitude, longitude and the array index as title for future id
             Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(Integer.toString(i)));
         }
+
+        vEvent.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN :
+                        Bundle bundle = new Bundle();
+                        Event mapEvent = events.get(eventViewing);
+                        bundle.putString("range_key", mapEvent.getRangeKey());
+                        bundle.putString("title", mapEvent.getTitle());
+                        bundle.putString("description", mapEvent.getDescription());
+                        bundle.putString("address", mapEvent.getAddress());
+                        bundle.putString("hours", mapEvent.getFormattedStart() + " - " + mapEvent.getFormattedEnd());
+                        bundle.putString("url", mapEvent.getImageUrl());
+                        Intent intent = new Intent(getBaseContext(), EventDetails.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        return true;
+                    default :
+                        return true;
+                }
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.event_map_menu_actions, menu);
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.event_map_menu_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -67,18 +102,14 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if(id == R.id.list_display) {
-            super.onBackPressed();
-        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         //get event corresponding to marker
-        int index = Integer.parseInt(marker.getTitle());
-        Event event = events.get(index);
+        this.eventViewing = Integer.parseInt(marker.getTitle());
+        Event event = events.get(this.eventViewing);
         LatLng latlng = new LatLng(event.getLatitude(), event.getLongitude());
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
 
@@ -95,5 +126,13 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
 
         findViewById(R.id.map_card).setVisibility(View.VISIBLE);
         return true;
+    }
+
+    public void goBack(View v){
+        super.onBackPressed();
+    }
+
+    public void viewAsList(View v){
+        super.onBackPressed();
     }
 }
