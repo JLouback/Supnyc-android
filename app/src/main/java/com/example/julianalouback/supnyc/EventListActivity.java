@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.julianalouback.supnyc.Models.Event;
+import com.example.julianalouback.supnyc.util.LikesDataSource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ public class EventListActivity extends Activity {
     private RecyclerView.LayoutManager mLayoutManager;
     private String mType;
     private View mActionBarView;
+    private LikesDataSource mDataSource;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -44,6 +46,9 @@ public class EventListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        mDataSource = new LikesDataSource(this);
+        mDataSource.open();
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -81,10 +86,13 @@ public class EventListActivity extends Activity {
                                     if(dismissRight){
                                         Event event = mAdapter.getItem(position);
                                         event.setUserLiked(true);
+                                        mDataSource.createLike(event);
                                         mAdapter.setItemInList(position, event);
                                         mAdapter.notifyItemChanged(position);
                                     }
                                     else {
+                                        Event event = mAdapter.getItem(position);
+                                        mDataSource.createDislike(event);
                                         mAdapter.removeItem(position);
                                         mAdapter.notifyItemRemoved(position);
                                     }
@@ -248,6 +256,24 @@ public class EventListActivity extends Activity {
     }
     public void goBack(View v){
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        mDataSource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mDataSource.close();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mDataSource.close();
+        super.onDestroy();
     }
 
 }

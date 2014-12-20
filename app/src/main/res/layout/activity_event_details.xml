@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight=".7"
+        android:layout_weight=".6"
         android:weightSum="1"
         >
         <TextView
@@ -101,6 +101,32 @@
                 android:fontFamily="sans-serif-thin"
                 />
         </ScrollView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".11"
+        android:orientation="horizontal"
+        android:weightSum="3">
+       <ImageButton
+           android:id="@+id/details_dislike"
+           android:layout_width="0dp"
+           android:layout_height="fill_parent"
+           android:layout_weight="1"
+           android:background="@color/app_transparent"
+           android:src="@drawable/ic_action_bad"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageButton
+            android:id="@+id/details_like"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/app_transparent"
+            android:src="@drawable/ic_action_favorite"/>
 
     </LinearLayout>
 
