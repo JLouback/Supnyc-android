@@ -41,7 +41,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:fontFamily="sans-serif-bold"
-            ></TextView>
+            />
         <TextView
             android:id="@+id/details_address"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:fontFamily="sans-serif-bold"
-            ></TextView>
+            />
         <TextView
             android:id="@+id/details_hours"
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:fontFamily="sans-serif-bold"
-            ></TextView>
+            />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -101,8 +101,6 @@
                 android:fontFamily="sans-serif-thin"
                 />
         </ScrollView>
-
-
 
     </LinearLayout>
 
