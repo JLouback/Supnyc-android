@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="5">
+        android:weightSum="5.5">
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
@@ -71,7 +71,6 @@
                 android:src="@drawable/ic_bars_button"
                 android:background="@null"
                 android:scaleType="fitCenter"
-
                 />
             <ImageButton
                 android:id="@+id/dining_button"
@@ -83,5 +82,25 @@
                 android:scaleType="fitCenter"/>
             </LinearLayout>
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.5"
+            android:weightSum="0.5">
+            <Button
+                android:id="@+id/recommended_button"
+                android:layout_width="fill_parent"
+                android:layout_height="10dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/ic_dining_button"
+                android:background="#70FFFFFF"
+                android:text="Recommended"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:scaleType="fitCenter"/>
+            </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>

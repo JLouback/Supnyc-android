@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -13,6 +14,7 @@ public class MenuActivity extends Activity {
     ImageButton culture;
     ImageButton bars;
     ImageButton dining;
+    Button recommended;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,16 @@ public class MenuActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), EventListActivity.class);
                 intent.putExtra("type", "dining");
+                startActivity(intent);
+            }
+        });
+
+        recommended = (Button) findViewById(R.id.recommended_button);
+        recommended.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), EventListActivity.class);
+                intent.putExtra("type", "recommended");
                 startActivity(intent);
             }
         });
