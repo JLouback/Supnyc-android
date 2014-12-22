@@ -37,13 +37,16 @@ public class LikesDataSource {
 
 
     public StoredEvent createLike(Event event){
+        removeLike(new StoredEvent(event.getRangeKey(), event.getType()));
+        removeDislike(new StoredEvent(event.getRangeKey(), event.getType()));
+
         ContentValues values = new ContentValues();
         values.put(SupSQLiteHelper.LIKES_COLUMN_KEY, event.getRangeKey());
         values.put(SupSQLiteHelper.LIKES_COLUMN_TYPE, event.getType());
         long insertId = database.insert(SupSQLiteHelper.LIKES_TABLE_NAME, null,
                 values);
         Cursor cursor = database.query(SupSQLiteHelper.LIKES_TABLE_NAME,
-                likesAllColumns, SupSQLiteHelper.LIKES_COLUMN_KEY + " = " + insertId, null,
+                likesAllColumns, SupSQLiteHelper.LIKES_COLUMN_KEY + " = \'" + event.getRangeKey() + "\' AND " + SupSQLiteHelper.LIKES_COLUMN_TYPE + " = \'" + event.getType() + "\'", null,
                 null, null, null);
         cursor.moveToFirst();
         StoredEvent result = cursorToEvent(cursor);
@@ -51,13 +54,52 @@ public class LikesDataSource {
         return result;
     }
     public StoredEvent createDislike(Event event){
+        removeLike(new StoredEvent(event.getRangeKey(), event.getType()));
+        removeDislike(new StoredEvent(event.getRangeKey(), event.getType()));
+
         ContentValues values = new ContentValues();
         values.put(SupSQLiteHelper.DISLIKES_COLUMN_KEY, event.getRangeKey());
         values.put(SupSQLiteHelper.DISLIKES_COLUMN_TYPE, event.getType());
         long insertId = database.insert(SupSQLiteHelper.DISLIKES_TABLE_NAME, null,
                 values);
         Cursor cursor = database.query(SupSQLiteHelper.DISLIKES_TABLE_NAME,
-                dislikesAllColumns, SupSQLiteHelper.DISLIKES_COLUMN_KEY + " = " + insertId, null,
+                dislikesAllColumns, SupSQLiteHelper.DISLIKES_COLUMN_KEY + " = \'" + event.getRangeKey() + "\' AND " + SupSQLiteHelper.DISLIKES_COLUMN_TYPE + " = \'" + event.getType() + "\'", null,
+                null, null, null);
+        cursor.moveToFirst();
+        StoredEvent result = cursorToEvent(cursor);
+        cursor.close();
+        return result;
+    }
+
+    public StoredEvent createDislike(String range, String type){
+        removeLike(new StoredEvent(range, type));
+        removeDislike(new StoredEvent(range, type));
+
+        ContentValues values = new ContentValues();
+        values.put(SupSQLiteHelper.DISLIKES_COLUMN_KEY, range);
+        values.put(SupSQLiteHelper.DISLIKES_COLUMN_TYPE, type);
+        long insertId = database.insert(SupSQLiteHelper.DISLIKES_TABLE_NAME, null,
+                values);
+        Cursor cursor = database.query(SupSQLiteHelper.DISLIKES_TABLE_NAME,
+                dislikesAllColumns, SupSQLiteHelper.DISLIKES_COLUMN_KEY + " = \'" + range + "\' AND " + SupSQLiteHelper.DISLIKES_COLUMN_TYPE + " = \'" + type + "\'", null,
+                null, null, null);
+        cursor.moveToFirst();
+        StoredEvent result = cursorToEvent(cursor);
+        cursor.close();
+        return result;
+    }
+
+    public StoredEvent createLike(String range, String type){
+        removeLike(new StoredEvent(range, type));
+        removeDislike(new StoredEvent(range, type));
+
+        ContentValues values = new ContentValues();
+        values.put(SupSQLiteHelper.LIKES_COLUMN_KEY, range);
+        values.put(SupSQLiteHelper.LIKES_COLUMN_TYPE, type);
+        long insertId = database.insert(SupSQLiteHelper.LIKES_TABLE_NAME, null,
+                values);
+        Cursor cursor = database.query(SupSQLiteHelper.LIKES_TABLE_NAME,
+                likesAllColumns, SupSQLiteHelper.LIKES_COLUMN_KEY + " = \'" + range + "\' AND " + SupSQLiteHelper.LIKES_COLUMN_TYPE + " = \'" + type + "\'", null,
                 null, null, null);
         cursor.moveToFirst();
         StoredEvent result = cursorToEvent(cursor);
@@ -66,11 +108,11 @@ public class LikesDataSource {
     }
 
     public void removeLike(StoredEvent event){
-        database.delete(SupSQLiteHelper.LIKES_TABLE_NAME,  SupSQLiteHelper.DELETE_FROM_LIKES, new String[] {event.getKey(), event.getType()});
+        database.delete(SupSQLiteHelper.LIKES_TABLE_NAME,  SupSQLiteHelper.LIKES_COLUMN_KEY + " = \'" + event.getKey() + "\' AND " + SupSQLiteHelper.DISLIKES_COLUMN_TYPE + " = \'" + event.getType() + "\'", null);
     }
 
     public void removeDislike(StoredEvent event){
-        database.delete(SupSQLiteHelper.DISLIKES_TABLE_NAME,  SupSQLiteHelper.DELETE_FROM_DISLIKES, new String[] {event.getKey(), event.getType()});
+        database.delete(SupSQLiteHelper.DISLIKES_TABLE_NAME,  SupSQLiteHelper.DISLIKES_COLUMN_KEY + " = \'" + event.getKey() + "\' AND " + SupSQLiteHelper.DISLIKES_COLUMN_TYPE + " = \'" + event.getType() + "\'", null);
     }
 
     public List<StoredEvent> getAllLikes(){

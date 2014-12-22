@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.julianalouback.supnyc.Models.Event;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,18 +41,21 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_map);
         findViewById(R.id.map_card).setVisibility(View.GONE);
-        LinearLayout vEvent = (LinearLayout) findViewById(R.id.map_card);
-
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-//displaying custom ActionBar
-        View mActionBarView = getLayoutInflater().inflate(R.layout.view_as_list_action_bar, null);
-        actionBar.setCustomView(mActionBarView);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        vEvent = (LinearLayout) findViewById(R.id.map_card);
 
         //Get list of events to mark on map
         Bundle bundle = getIntent().getExtras();
         events = bundle.getParcelableArrayList("events");
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.black_overlay));
+        actionBar.setDisplayShowTitleEnabled(true);
+        //displaying custom ActionBar
+        View mActionBarView = getLayoutInflater().inflate(R.layout.view_as_list_action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        ((TextView) actionBar.getCustomView().findViewById(R.id.event_list_title)).setText(events.get(0).getTypeTitle());
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setOnMarkerClickListener(this);
@@ -65,6 +69,18 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
             Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(Integer.toString(i)));
         }
 
+        boolean toastShown = false;
+        for(Event e : events){
+            if(e.getLatitude() != 200 && e.getLongitude() != 200){
+                LatLng latlng = new LatLng(e.getLatitude(), e.getLongitude());
+                map.addMarker(new MarkerOptions().position(latlng));
+            }
+            else if (!toastShown){
+                Toast.makeText(EventMapActivity.this, "*Not all events are shown here", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
         vEvent.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -72,7 +88,9 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
                     case MotionEvent.ACTION_DOWN :
                         Bundle bundle = new Bundle();
                         Event mapEvent = events.get(eventViewing);
+                        bundle.putBoolean("userLiked", mapEvent.getUserLiked());
                         bundle.putString("range_key", mapEvent.getRangeKey());
+                        bundle.putString("type", mapEvent.getType());
                         bundle.putString("title", mapEvent.getTitle());
                         bundle.putString("description", mapEvent.getDescription());
                         bundle.putString("address", mapEvent.getAddress());
@@ -117,6 +135,12 @@ public class EventMapActivity extends Activity implements GoogleMap.OnMarkerClic
 
         // fill in any details dynamically here
         TextView title = (TextView) v.findViewById(R.id.map_event_title);
+        if(event.getUserLiked()){
+            title.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite_toggled, 0);
+        }
+        else{
+            title.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0, 0);
+        }
         title.setText(event.getTitle());
         TextView description = (TextView) v.findViewById(R.id.map_txtDescription);
         description.setText(event.getDescription());

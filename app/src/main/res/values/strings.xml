@@ -8,5 +8,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_event_details">Details</string>
-
+    <string name="default_image_url">http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png</string>
+    <string name="recommended_event_api_url">http://supnyc.elasticbeanstalk.com/recommended_events_api</string>
+    <string name="events_api_url">http://supnyc.elasticbeanstalk.com/events_api</string>
 </resources>

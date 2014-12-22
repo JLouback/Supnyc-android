@@ -22,7 +22,7 @@ public class SupSQLiteHelper extends SQLiteOpenHelper {
     public static final String DELETE_FROM_DISLIKES = DISLIKES_COLUMN_KEY + "=?, " + DISLIKES_COLUMN_TYPE + "=?";
 
     private static final String DATABASE_NAME = "userstats.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
 
     private static final String CREATE_LIKES_TABLE = "create table " +
             LIKES_TABLE_NAME + " ( "

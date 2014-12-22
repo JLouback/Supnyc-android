@@ -66,6 +66,7 @@ public class Event implements Parcelable {
         this.mLikeCount = in.readLong();
         this.mIntendToGoCount = in.readLong();
         this.mRangeKey = in.readString();
+        this.userLiked = Boolean.parseBoolean(in.readString());
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -82,6 +83,7 @@ public class Event implements Parcelable {
         dest.writeLong(mLikeCount);
         dest.writeLong(mIntendToGoCount);
         dest.writeString(mRangeKey);
+        dest.writeString(Boolean.toString(userLiked));
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>()
@@ -157,5 +159,37 @@ public class Event implements Parcelable {
 
     public void setRangeKey(String key) { mRangeKey = key; }
     public String getRangeKey() { return this.mRangeKey; }
+
+    public String getTypeTitle(){
+        if(mType.equals("party")){
+            return "Party";
+        }
+        else if(mType.equals("bar")){
+            return "Bars";
+        }
+        else if(mType.equals("dining")){
+            return "Dining";
+        }
+        else if(mType.equals("culture")){
+            return "Culture";
+        } else {
+            return "Recommended Events";
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj){
+
+        if(obj instanceof Event){
+            Event e = (Event) obj;
+            return e.getRangeKey().equals(this.getRangeKey()) && e.getType().equals(this.getType());
+        }
+        else if (obj instanceof StoredEvent){
+            StoredEvent e = (StoredEvent) obj;
+            return e.getKey().equals(this.getRangeKey()) && e.getType().equals(this.getType());
+        }
+
+        return false;
+    }
 
 }

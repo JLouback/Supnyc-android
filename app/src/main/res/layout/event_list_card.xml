@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/event_list_card"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="250dp"
     card_view:cardCornerRadius="1dp"
     card_view:cardElevation="5dp"
     >
@@ -20,13 +20,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
+            android:layout_weight="60"
             >
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/event_image"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop">
 
                 </com.android.volley.toolbox.NetworkImageView>
@@ -36,8 +36,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="2dp"
-                android:textSize="30dp"
+                android:text="TITLE"
+                android:textSize="@dimen/text_size_large"
                 android:background="#AA000000"
+                android:paddingTop="7dp"
                 android:paddingLeft="10dp"
                 android:textColor="#FFFFFFFF"
                 android:fontFamily="sans-serif-thin"
@@ -57,19 +59,30 @@
 
             <TextView
                 android:id="@+id/txtDescription"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size_medium"
                 android:textColor="#FF000000"
+                android:text="Description"
                 android:paddingLeft="10dp"
+                android:paddingRight="8dp"
                 android:layout_width="0dp"
                 android:fontFamily="sans-serif-thin"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"/>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="60dp"
+                android:background="@color/black_overlay"/>
+
             <TextView
                 android:id="@+id/txtAddressAndTime"
-                android:textSize="15dp"
+                android:textSize="@dimen/text_size_small"
+                android:text="Hours and Time"
                 android:textColor="#FF000000"
                 android:fontFamily="sans-serif-thin"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"/>

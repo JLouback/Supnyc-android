@@ -47,7 +47,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), EventListActivity.class);
-                intent.putExtra("type", "bars");
+                intent.putExtra("type", "bar");
                 startActivity(intent);
             }
         });
@@ -69,6 +69,7 @@ public class MenuActivity extends Activity {
                 Intent intent = new Intent(getBaseContext(), EventListActivity.class);
                 intent.putExtra("type", "recommended");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
             }
         });
     }

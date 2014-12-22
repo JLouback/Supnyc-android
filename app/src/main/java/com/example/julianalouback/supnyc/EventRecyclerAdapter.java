@@ -74,6 +74,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         if(event.getUserLiked()){
             holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_action_favorite_toggled, 0);
         }
+        else{
+            holder.vTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0, 0);
+        }
         String url = event.getImageUrl();
         loadImageBackground(url, holder);
     }

@@ -26,4 +26,19 @@ public class StoredEvent {
         this.mType = type;
     }
 
+    @Override
+    public boolean equals(Object obj){
+
+        if(obj instanceof Event){
+            Event e = (Event) obj;
+            return e.getRangeKey().equals(this.getKey()) && e.getType().equals(this.getType());
+        }
+        else if (obj instanceof StoredEvent){
+            StoredEvent e = (StoredEvent) obj;
+            return e.getKey().equals(this.getKey()) && e.getType().equals(this.getType());
+        }
+
+        return false;
+    }
+
 }
